@@ -14,12 +14,12 @@ public enum objectMovement
 public class CubeScriot : MonoBehaviour
 {
 
-    public float   
-        speed=1,
-        rangeValue = 3,
+    public float  
+        speed = 1,
+        rangeValue = 7,
         distance;
-    public objectMovement cubeMovement;
-    public Transform pointA, pointB;
+
+    public GameObject Enemy;
 
 
 
@@ -32,37 +32,7 @@ public class CubeScriot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distance = Vector3.Distance(transform.position, pointB.position);
-
-        if (Input.GetKeyDown(KeyCode.W))
-            cubeMovement = objectMovement.Forward;
-        else if (Input.GetKeyDown(KeyCode.A))
-            cubeMovement = objectMovement.Backward;
-        else if (Input.GetKeyDown(KeyCode.S))
-            cubeMovement = objectMovement.Left;
-        else if (Input.GetKeyDown(KeyCode.D))
-            cubeMovement = objectMovement.Right;
-
-       /* switch (cubeMovement)
-        {
-            case objectMovement.Forward:
-                moveForward();
-                break;
-            case objectMovement.Backward:
-                moveBackward();
-                break;
-            case objectMovement.Left:
-                moveLeftward();
-                break;
-            case objectMovement.Right:
-                moveRightward();
-                break;
-            default:
-                break;
-        }*/
-
-        //transform.position = Vector3.Lerp(transform.position, pointB.position, speed * Time.deltaTime).normalized;
-        //transform.position = Vector3.Lerp(pointA.position, pointB.position, (Time.time / (Vector3.Distance(pointA.position, pointB.position) / speed)));
+        distance = Vector3.Distance(transform.position, Enemy.transform.position);
 
         if (distance <= rangeValue )
         {
@@ -76,23 +46,6 @@ public class CubeScriot : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rangeValue);
     }
-    void moveForward()
-    {
-        transform.position = (transform.position+Vector3.forward) * speed * Time.time;
-    }
-    void moveBackward()
-    {
-        transform.position = (transform.position + Vector3.back) * speed * Time.time;
-    }
-    void moveLeftward()
-    {
-        transform.position = Vector3.left * speed * Time.time;
-    }
-    void moveRightward()
-    {
-        transform.position = Vector3.right * speed * Time.time;
-    }
-
 
     void Accelerate()
     {
