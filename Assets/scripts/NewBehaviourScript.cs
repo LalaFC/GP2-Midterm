@@ -10,9 +10,14 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject player;
     private Color color;
     public List<Color> colors;
+<<<<<<< Updated upstream
     public MeshRenderer PlayerColor;
     private MeshRenderer bulletcolor;
     bool canChange = true;
+=======
+    public MeshRenderer meshRend;
+    private bool canChange = false;
+>>>>>>> Stashed changes
   
     // Start is called before the first frame update
     void Start()
@@ -20,18 +25,40 @@ public class NewBehaviourScript : MonoBehaviour
         PlayerColor = GetComponent<MeshRenderer>();
         bulletcolor = GetComponentInChildren<MeshRenderer>();
 
+<<<<<<< Updated upstream
+=======
+    // Update is called once per frame
+    void Update()
+    {
+        if (canChange == true)
+        {
+          //  StartCoroutine(changeColor());
+
+        }
+        color = colors[Random.Range(0, colors.Count)];
+>>>>>>> Stashed changes
     }
 
     private void OnMouseDown()
     {
+<<<<<<< Updated upstream
         color = colors[Random.Range(0, colors.Count)];
         PlayerColor.material.color = color;
 
+=======
+        meshRend.material.color = color;
+        Debug.Log("mouse entered");
+>>>>>>> Stashed changes
     }
 
     private void OnMouseEnter()
     {
+<<<<<<< Updated upstream
         PlayerColor.material.color = Color.black;
+=======
+        meshRend.material.color = Color.black;
+        Debug.Log("mouse entered");
+>>>>>>> Stashed changes
     }
     private void OnMouseExit()
     {
