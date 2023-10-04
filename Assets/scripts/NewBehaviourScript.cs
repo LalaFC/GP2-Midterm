@@ -13,11 +13,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     public MeshRenderer PlayerMesh;
     private MeshRenderer BulletMesh;
-
-
-    public MeshRenderer meshRend;
-
-
+    
     void Start()
     {
         PlayerMesh = GetComponent<MeshRenderer>();
