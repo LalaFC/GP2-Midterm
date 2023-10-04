@@ -7,51 +7,35 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public GameObject cube;
+    public GameObject player;
     private Color color;
     public List<Color> colors;
-    public MeshRenderer meshRend;
-    private bool canChange = true;
+    public MeshRenderer PlayerColor;
+    private MeshRenderer bulletcolor;
+    bool canChange = true;
   
     // Start is called before the first frame update
     void Start()
     {
-        meshRend = GetComponent<MeshRenderer>();
-    }
+        PlayerColor = GetComponent<MeshRenderer>();
+        bulletcolor = GetComponentInChildren<MeshRenderer>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (canChange == true)
-        {
-            StartCoroutine(changeColor());
-
-        }
     }
-
-    private void OnEnable()
-    {
-        color = colors[Random.Range(0, colors.Count)];
-        meshRend.material.color = color;
-    }
-    private void OnDisable()
-    {
-        
-    }
-
 
     private void OnMouseDown()
     {
-        meshRend.material.color = Color.green;
+        color = colors[Random.Range(0, colors.Count)];
+        PlayerColor.material.color = color;
+
     }
 
     private void OnMouseEnter()
     {
-        meshRend.material.color = Color.black;
+        PlayerColor.material.color = Color.black;
     }
     private void OnMouseExit()
     {
-        meshRend.material.color = Color.red;
+        PlayerColor.material.color = Color.red;
     }
 
     /*private void OnMouseOver()
@@ -76,7 +60,7 @@ public class NewBehaviourScript : MonoBehaviour
 
             canChange = false;
             color = colors[Random.Range(0, colors.Count)];
-            meshRend.material.color = color;
+        PlayerColor.material.color = color;
         
         yield return new WaitForSeconds(2);
         canChange = true;

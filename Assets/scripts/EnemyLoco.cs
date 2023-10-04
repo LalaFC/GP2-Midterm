@@ -1,15 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyLoco : MonoBehaviour
 {
     float speed;
-    public GameObject Player;
-    // Update is called once per frame
+    Vector3 PlayerPos;
+
+    private void Start()
+    {
+        PlayerPos = EnemySpawner.instance.Player.transform.position;
+    }
     void Update()
     {
-        speed = Mathf.Lerp(0.01f, 3, Time.time / 100);
-        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed);
+        LookRotation();
+        speed = 1;
+        Vector3.MoveTowards( transform.position, PlayerPos, speed);
+        //transform.position = Vector3.Lerp(PlayerPos, transform.position, (Time.time / (Vector3.Distance(transform.position, PlayerPos) / speed)));
     }
+
+    void LookRotation()
+    {
+        Vector3 relativePos = PlayerPos - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+        transform.rotation =  rotation;
+    }
+
 }

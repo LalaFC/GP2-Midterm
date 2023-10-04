@@ -6,24 +6,28 @@ using static UnityEngine.GraphicsBuffer;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner instance { get; private set; }
     public GameObject Enemy;
     public GameObject Player;
+    public Vector3 v3Pos;
+    private float spawnCD;
+    bool canSpawn = true;
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(Spawn());
+        if (canSpawn)
+        StartCoroutine(Spawn(spawnCD));
+
     }
-    IEnumerator Spawn()
+    IEnumerator Spawn(float CD)
     {
-        Vector3 v3Pos = Camera.main.ViewportToWorldPoint(new Vector3(1.1f, 0.5f, 10.0f));
-        Instantiate(Enemy, v3Pos, LookRotation());
+        canSpawn = false;
+        v3Pos = Camera.main.ViewportToWorldPoint(new Vector3(1.1f, 0.5f, 10.0f));
+        Instantiate(Enemy, v3Pos, quaternion.identity);
         yield return new WaitForSeconds(2);
+        canSpawn=true;
+
     }
-    private quaternion LookRotation()
-    {
-        Vector3 relativePos = transform.position - Player.transform.position;
-        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        return rotation;
-    }
+
 }
