@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMech : MonoBehaviour
+public class PlayerMechanics : MonoBehaviour
 {
+    public static PlayerMechanics instance { get; private set; }
 
     public GameObject Enemy;
     public float
@@ -14,7 +15,8 @@ public class PlayerMech : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if (instance != null && instance != this) { Destroy(this); }
+        else { instance = this; }
     }
 
     // Update is called once per frame

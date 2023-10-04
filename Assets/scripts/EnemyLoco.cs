@@ -8,7 +8,7 @@ public class EnemyLoco : MonoBehaviour
     float speed;
     Vector3 PlayerPos;
 
-    private void Start()
+    private void Try()
     {
         PlayerPos = EnemySpawner.instance.Player.transform.position;
     }

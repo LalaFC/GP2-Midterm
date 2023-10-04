@@ -33,10 +33,10 @@ public class LookCamera : MonoBehaviour
         }
 
         if (Input.mouseScrollDelta.y > 0)
-            Camera.main.fieldOfView += Input.mouseScrollDelta.y;
+            Camera.main.fieldOfView -= Input.mouseScrollDelta.y;
 
         else if (Input.mouseScrollDelta.y < 0)
-            Camera.main.fieldOfView += Input.mouseScrollDelta.y;
+            Camera.main.fieldOfView -= Input.mouseScrollDelta.y;
 
     }
 }
