@@ -10993,7 +10993,7 @@ MonoBehaviour:
   player: {fileID: 1730907588}
   chargeUp: {fileID: 1287948309}
   SpawnSpot: {fileID: 1998461822}
-  dummySpot: {fileID: 0}
+  dummySpot: {fileID: 1141523880}
   playerMech: {fileID: 0}
   LastDirection: {x: 0, y: 0, z: 0}
   canShoot: 1

@@ -27,7 +27,6 @@ public class PlayerMechanics : MonoBehaviour
             }
             else
                 inRange = false;
-
         }
 
     }
