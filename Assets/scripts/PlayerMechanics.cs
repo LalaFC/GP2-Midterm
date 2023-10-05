@@ -1,45 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMechanics : MonoBehaviour
 {
-    public static PlayerMechanics instance { get; private set; }
-
     public GameObject Enemy;
+    public bool GameOver=false;
     public float
         speed = 1,
         rangeValue = 3,
         distance;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (instance != null && instance != this) { Destroy(this); }
-        else { instance = this; }
-    }
+    public bool inRange = false;
 
     // Update is called once per frame
     void Update()
     {
-        distance = Vector3.Distance(transform.position, Enemy.transform.position);
-        if (distance < rangeValue)
-            LookRotation();
+        Enemy = GameObject.FindGameObjectWithTag("Enemy");
+        if (Enemy != null) 
+        {
+            distance = Vector3.Distance(transform.position, Enemy.transform.position);
+            if (distance < rangeValue)
+            {                
+                LookRotation();
+            }
+            else
+                inRange = false;
+
+        }
+
     }
     void LookRotation()
     {
-        Vector3 relativePos = transform.position - Enemy.transform.position;
+        float rotspeed = 20;
+        Vector3 relativePos = Enemy.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
-        transform.rotation = rotation;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotspeed * Time.deltaTime);
+        inRange = true;
     }
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, rangeValue);
+        Gizmos.color = new Color(0, 1, 0, 0.1f);
+        Gizmos.DrawSphere(transform.position, rangeValue);
     }
 
-    void Accelerate()
-    {
-        speed = Mathf.Lerp(1, 100, (Time.time / 100));
-    }
 }

@@ -7,27 +7,36 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public GameObject player;
-    private Color color;
-    public List<Color> colors;
+    public static Color color;
+    public Colors colors;
 
     public MeshRenderer PlayerMesh;
-    private MeshRenderer BulletMesh;
     
     void Start()
     {
         PlayerMesh = GetComponent<MeshRenderer>();
-        BulletMesh = GetComponentInChildren<MeshRenderer>();
-
+        PlayerMesh.material.color = colors.ColorList[Random.Range(0, colors.ColorList.Count)];
     }
     void OnMouseDown()
     {
-
-        color = colors[Random.Range(0, colors.Count)];
+        color = colors.ColorList[Random.Range(0, colors.ColorList.Count)];
         PlayerMesh.material.color = color;
 
         Debug.Log("Player Color Changed");
 
+    }
+
+    public GameObject Canvas;
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Player Hit. GAME OVER");
+            Canvas.SetActive(true);
+            SpawnBullet.instance.playerMech.GameOver = true;
+            Destroy(this.gameObject);
+            Destroy(collision.gameObject);
+        }
     }
 
 }
