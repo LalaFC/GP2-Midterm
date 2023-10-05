@@ -10,7 +10,6 @@ public class EnemyMech : MonoBehaviour
     MeshRenderer EnemyMesh;
     public UnityEngine.Color color;
     public Colors colors;
-
     private void Awake()
     {
         color  = colors.ColorList[Random.Range(0, colors.ColorList.Count)];
@@ -24,6 +23,7 @@ public class EnemyMech : MonoBehaviour
         GameObject target = GameObject.FindGameObjectWithTag("Player");
         transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
         LookRotation();
+
     }
     void LookRotation()
     {

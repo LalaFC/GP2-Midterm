@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerMechanics : MonoBehaviour
 {
     public GameObject Enemy;
-    public bool GameOver=false;
+    public static bool GameOver = false;
     public float
         speed = 1,
         rangeValue = 3,
@@ -33,11 +33,14 @@ public class PlayerMechanics : MonoBehaviour
     }
     void LookRotation()
     {
-        float rotspeed = 20;
+        //SpawnBullet.instance.canShoot = false;
+        float rotspeed = 30;
         Vector3 relativePos = Enemy.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotspeed * Time.deltaTime);
+        if (transform.rotation == rotation)
         inRange = true;
+        //SpawnBullet.instance.canShoot = true;
     }
     public void OnDrawGizmos()
     {

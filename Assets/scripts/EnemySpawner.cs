@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
 
     public Vector3 SpawnSpot,
                    MinDist;
-
+    public List<Vector3> possibleSpots;
     private float spawnCD = 10;
     bool canSpawn = true;
 
@@ -21,18 +21,30 @@ public class EnemySpawner : MonoBehaviour
     {
         float range = Player.GetComponent<PlayerMechanics>().rangeValue;
 
-        MinDist = UnityEngine.Random.onUnitSphere + new Vector3(1,1,1)*(range);
+        //MinDist = UnityEngine.Random.onUnitSphere + new Vector3(1,1,1)*(range);
+        Vector3 RandomPoint = UnityEngine.Random.onUnitSphere;
+        possibleSpots.Add(RandomPoint + new Vector3(-1, 1, 1) * (range));
+        possibleSpots.Add(RandomPoint + new Vector3(1, -1, 1) * (range));
+        possibleSpots.Add(RandomPoint + new Vector3(1, 1, -1) * (range));
+        possibleSpots.Add(RandomPoint + new Vector3(1, 1, 1) * (range));
+        possibleSpots.Add(RandomPoint + new Vector3(-1, -1, -1) * (range));
+        possibleSpots.Add(RandomPoint + new Vector3(-1, -1, 1) * (range));
+        possibleSpots.Add(RandomPoint + new Vector3(-1, 1, -1) * (range));
+        possibleSpots.Add(RandomPoint + new Vector3(1, -1, -1) * (range));
+
     }
     // Update is called once per frame
     void Update()
     {
+
+        MinDist = possibleSpots[UnityEngine.Random.Range(0, possibleSpots.Count)];
         float spawnAccelerator=1;
-        if (Time.time >= 20)
+        if (Time.time >= 60)
             spawnAccelerator = 2;
-        spawnCD = math.lerp(10, 2, (spawnAccelerator * Time.time) / 100);
+        spawnCD = math.lerp(10, 3, (spawnAccelerator * Time.deltaTime) / 100);
         if (canSpawn)
         StartCoroutine(Spawn(spawnCD));
-        if (SpawnBullet.instance.playerMech.GameOver == true)
+        if (PlayerMechanics.GameOver == true)
             StopCoroutine(Spawn(spawnCD));
 
     }

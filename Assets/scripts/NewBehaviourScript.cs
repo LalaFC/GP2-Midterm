@@ -16,6 +16,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         PlayerMesh = GetComponent<MeshRenderer>();
         PlayerMesh.material.color = colors.ColorList[Random.Range(0, colors.ColorList.Count)];
+        color = PlayerMesh.material.color;
     }
     void OnMouseDown()
     {
@@ -33,7 +34,7 @@ public class NewBehaviourScript : MonoBehaviour
         {
             Debug.Log("Player Hit. GAME OVER");
             Canvas.SetActive(true);
-            SpawnBullet.instance.playerMech.GameOver = true;
+            PlayerMechanics.GameOver = true;
             Destroy(this.gameObject);
             Destroy(collision.gameObject);
         }

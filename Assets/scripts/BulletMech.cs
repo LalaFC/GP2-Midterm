@@ -24,9 +24,20 @@ public class BulletMech : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        if (SpawnBullet.instance.playerMech.inRange == false)
+            direction = SpawnBullet.instance.LastDirection;
+        else
+        {
+            direction = enemy.transform.position - transform.position;
+            SpawnBullet.instance.LastDirection = direction;
+        }
 
-        direction = enemy.transform.position - transform.position;
         rb.velocity = new Vector3(direction.x, direction.y, direction.z).normalized * force;
+    }
+    private void Update()
+    {
+        if (Vector3.Distance(transform.position,SpawnBullet.instance.player.transform.position)>SpawnBullet.instance.playerMech.rangeValue)
+            Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
